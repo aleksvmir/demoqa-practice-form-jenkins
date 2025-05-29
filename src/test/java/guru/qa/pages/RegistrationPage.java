@@ -6,6 +6,7 @@ import guru.qa.pages.components.CheckResultComponent;
 
 import java.io.File;
 
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
@@ -83,14 +84,14 @@ public class RegistrationPage {
     }
 
     public RegistrationPage selectState(String state) {
-        stateDropdown.click();
-        $(byText(state)).click();
+        stateDropdown.shouldBe(visible).scrollTo().click();
+        $(byText(state)).shouldBe(visible).click();
         return this;
     }
 
     public RegistrationPage selectCity(String city) {
-        cityDropdown.click();
-        $(byText(city)).click();
+        cityDropdown.shouldBe(visible).scrollTo().click();
+        $(byText(city)).shouldBe(visible).click();
         return this;
     }
 
