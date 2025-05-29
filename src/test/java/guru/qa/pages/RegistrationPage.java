@@ -30,10 +30,7 @@ public class RegistrationPage {
 
     public RegistrationPage openPage() {
         open("/automation-practice-form");
-        executeJavaScript(
-                "document.getElementById('fixedban').remove();" +
-                        "document.querySelector('footer').remove();"
-        );
+        removeAllAds();
 
         $(".practice-form-wrapper").shouldHave(text("Student Registration Form"));
         return this;
@@ -103,11 +100,22 @@ public class RegistrationPage {
     }
 
     public RegistrationPage submitForm() {
-        submitButton.scrollTo().click();
+        submitButton.scrollIntoView(true).shouldBe(visible).click();
         return this;
     }
 
     public CheckResultComponent checkResultTable() {
         return new CheckResultComponent();
+    }
+
+    private void removeAllAds() {
+        executeJavaScript(
+                "const adSelectors = ['#fixedban', 'footer', '.adsbygoogle', '.ad', '.ad-container', '.ad-banner', " +
+                        "'.google-ad', '.ad-wrapper', '.ad-unit', '.advert', '.advertisement', " +
+                        "'[id^=google_ads_iframe]', '[id^=div-gpt-ad]', '[id^=ad-container]']; " +
+                        "adSelectors.forEach(selector => { " +
+                        "   document.querySelectorAll(selector).forEach(el => el.remove()); " +
+                        "});"
+        );
     }
 }

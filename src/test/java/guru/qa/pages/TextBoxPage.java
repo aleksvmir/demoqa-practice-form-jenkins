@@ -3,6 +3,7 @@ package guru.qa.pages;
 import com.codeborne.selenide.SelenideElement;
 
 import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 
 public class TextBoxPage {
@@ -16,6 +17,14 @@ public class TextBoxPage {
 
     public TextBoxPage openPage() {
         open("/text-box");
+        executeJavaScript(
+                "const adSelectors = ['#fixedban', 'footer', '.adsbygoogle', '.ad', '.ad-container', '.ad-banner', " +
+                        "'.google-ad', '.ad-wrapper', '.ad-unit', '.advert', '.advertisement', " +
+                        "'[id^=google_ads_iframe]', '[id^=div-gpt-ad]', '[id^=ad-container]']; " +
+                        "adSelectors.forEach(selector => { " +
+                        "   document.querySelectorAll(selector).forEach(el => el.remove()); " +
+                        "});"
+        );
         return this;
     }
 
@@ -40,7 +49,7 @@ public class TextBoxPage {
     }
 
     public TextBoxPage submitForm() {
-        submitButton.click();
+        submitButton.scrollIntoView(true).shouldBe(visible).click();
         return this;
     }
 
