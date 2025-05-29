@@ -46,6 +46,10 @@ public class Attachments {
     }
 
     public static String getSessionId() {
-        return ((RemoteWebDriver) getWebDriver()).getSessionId().toString();
+        try {
+            return ((RemoteWebDriver) getWebDriver()).getSessionId().toString();
+        } catch (Exception e) {
+            return "no-session-id";
+        }
     }
 }
